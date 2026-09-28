@@ -51,3 +51,26 @@ DISABLE,1
 `RUN` fields are motor ID, speed percent, acceleration, and target position in turns. Valid commands receive `OK`; malformed, out-of-range, or CAN transport failures receive `ERR,...`. `STOP` sends the EasyCan emergency-stop command. The board no longer starts a demo motion at boot.
 
 The board must have the LAN8742 RMII PHY connected and share the same subnet as the UDP host.
+# Motor CAN Control Protocol V2
+
+## UDP 通信协议说明
+
+本工程采用固定长度二进制 UDP 数据帧控制 CAN 电机，主要包含两类控制报文：
+
+- **9 字节电机控制帧**：包含电机 ID、控制有效标志、速度百分比、加速度和目标位置等字段。设备接收到报文后进行长度、ID 和参数范围校验，校验通过后转换为 CAN 控制指令发送至对应电机。
+- **9 字节系统控制帧**：用于电机回零、位置读取、使能控制、停止控制、速度读取和电流读取等系统级操作。相关状态字段采用 `-1、0、1` 表示禁用、保持或执行。
+- **状态反馈数据**：按照 31×9 数据矩阵组织，可转换为连续 CSV 数据，用于反馈电机位置、速度、电流及其他运行状态。
+
+### 数据处理流程
+
+```text
+UDP 接收
+    -> 报文长度校验
+    -> 电机 ID 和参数范围校验
+    -> 电机控制接口
+    -> CAN 控制帧发送
+    -> 电机状态反馈解析
+    -> UDP 响应
+```
+
+非法长度、非法 ID 或非法参数不会发送 CAN 控制帧，设备返回错误响应。

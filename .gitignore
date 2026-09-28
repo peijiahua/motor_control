@@ -1,0 +1,7 @@
+.gitdir/
+MDK-ARM/Objects/
+MDK-ARM/Listings/
+*.axf
+*.hex
+*.map
+*.htm

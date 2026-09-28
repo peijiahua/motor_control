@@ -1,0 +1,28 @@
+#ifndef MOTOR_CAN_CONFIG_H
+#define MOTOR_CAN_CONFIG_H
+
+#define MOTOR_CAN_MIN_ID                 (1U)
+#define MOTOR_CAN_MAX_ID                 (20U)
+#define MOTOR_CAN_COUNT                  (20U)
+#define MOTOR_CAN_SPEED_RPM_AT_100_PCT   (3000.0f)
+#define MOTOR_CAN_POSITION_PU_PER_TURN   (32768.0f)
+#define MOTOR_CAN_MAX_ACCELERATION       (60000U)
+
+#define MOTOR_CAN_REG_ENABLE             (0x01U)
+#define MOTOR_CAN_REG_MODBUS_ENABLE      (0x00U)
+#define MOTOR_CAN_REG_TARGET_SPEED       (0x02U)
+#define MOTOR_CAN_REG_ACCELERATION        (0x03U)
+#define MOTOR_CAN_REG_SYSTEM_CURRENT     (0x0FU)
+#define MOTOR_CAN_REG_SYSTEM_VOLTAGE     (0x11U)
+#define MOTOR_CAN_REG_ABSOLUTE_POSITION  (0x16U)
+#define MOTOR_CAN_REG_MODE               (0x19U)
+#define MOTOR_CAN_REG_SAVE_PARAMETERS    (0x14U)
+
+#define MOTOR_CAN_FUNC_READ              (0x03U)
+#define MOTOR_CAN_FUNC_WRITE             (0x06U)
+#define MOTOR_CAN_FUNC_EMERGENCY_STOP    (0x10U)
+
+#define MOTOR_CAN_TELEMETRY_CURRENT      (0x01U)
+#define MOTOR_CAN_TELEMETRY_VOLTAGE      (0x02U)
+
+#endif
